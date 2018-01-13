@@ -21,6 +21,17 @@ ENV PATH $PATH:${SPARK_HOME}/bin
 
 #COPY slaves /opt/spark-2.2.0-bin-hadoop2.7/conf
 
-CMD ["/opt/spark-2.2.0-bin-hadoop2.7/bin/spark-class", "org.apache.spark.deploy.master.Master"]
+#CMD ["/opt/spark-2.2.0-bin-hadoop2.7/bin/spark-class", "org.apache.spark.deploy.master.Master"]
+
+
+# update boot script
+COPY entrypoint.sh /etc/entrypoint.sh
+RUN chown root.root /etc/entrypoint.sh
+RUN chmod 700 /etc/entrypoint.sh
+
+#spark
+EXPOSE 8080 7077 8888 8081
+
+ENTRYPOINT ["/etc/entrypoint.sh"]
 
 EXPOSE 8080 7077 6066
